@@ -11,16 +11,19 @@ function HomePage() {
   const navigate = useNavigate();
 
   return (
-    <div className="p-4">
-      <h2 className="text-2xl font-bold mb-4">LearnAI Dashboard</h2>
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
+    <div className="min-h-screen bg-gray-50 p-6">
+      <h1 className="text-4xl font-bold mb-8 text-center text-indigo-700">
+        LearnAI 
+      </h1>
+
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
         {topics.map((topic) => (
           <div
             key={topic.id}
             onClick={() => navigate(`/topic/${topic.id}`)}
-            className="border p-4 rounded shadow hover:shadow-lg cursor-pointer"
+            className="bg-white rounded-xl shadow-md p-6 text-center hover:shadow-xl transition-shadow cursor-pointer transform hover:-translate-y-1 duration-200"
           >
-            <h3 className="text-xl font-semibold">{topic.name}</h3>
+            <h3 className="text-2xl font-semibold text-gray-800">{topic.name}</h3>
           </div>
         ))}
       </div>

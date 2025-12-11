@@ -16,10 +16,15 @@ function TopicPage() {
   const [answer, setAnswer] = useState("");
   const [loading, setLoading] = useState(false);
 
-  if (!topic) return <div>Topic not found</div>;
+  if (!topic)
+    return (
+      <div className="p-6 text-center text-red-600 font-bold">
+        Topic not found
+      </div>
+    );
 
   const handleAsk = async (question) => {
-    if (!question) return; // Prevent empty questions
+    if (!question) return;
     setLoading(true);
     setAnswer(""); // Clear previous answer
     try {
@@ -27,7 +32,6 @@ function TopicPage() {
         `${import.meta.env.VITE_API_BASE_URL}/ask`,
         { question }
       );
-
       setAnswer(response.data.answer);
     } catch (error) {
       console.error(error.response || error);
@@ -38,19 +42,23 @@ function TopicPage() {
   };
 
   return (
-    <div className="p-4 max-w-2xl mx-auto">
-      <h2 className="text-2xl font-bold mb-4">{topic.name}</h2>
-      <p className="mb-4">
-        Here the student can ask AI questions about {topic.name}.
-      </p>
+    <div className="min-h-screen bg-gray-50 p-6 flex flex-col items-center">
+      <div className="w-full max-w-2xl bg-white rounded-2xl shadow-md p-6">
+        <h2 className="text-3xl font-bold mb-4 text-indigo-600">{topic.name}</h2>
+        <p className="mb-6 text-gray-700">
+          Here the student can ask AI questions about {topic.name}.
+        </p>
 
-      <QuestionInput onAsk={handleAsk} />
+        <QuestionInput onAsk={handleAsk} />
 
-      {loading ? (
-        <p className="mt-4 text-gray-500 font-semibold">Thinking...</p>
-      ) : (
-        <AnswerDisplay answer={answer} />
-      )}
+        {loading ? (
+          <p className="mt-4 text-gray-500 font-semibold animate-pulse">
+            Thinking...
+          </p>
+        ) : (
+          <AnswerDisplay answer={answer} />
+        )}
+      </div>
     </div>
   );
 }
